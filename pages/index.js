@@ -190,10 +190,10 @@ export default function Home() {
           </div>
         </main>
       </div>
-      <div class="container mx-auto px-12">
+      <div className="container mx-auto px-12">
         <FeatureList>
           <Feature>
-            <Image src={Bank} width={40} height={40} />
+            <Image src={Bank} width={40} height={40} alt="" />
             <FeatureContent>
               <FeatureTitle>Connect your Bank</FeatureTitle>
               <Description>
@@ -204,7 +204,7 @@ export default function Home() {
           </Feature>
 
           <Feature>
-            <Image src={Money} width={40} height={40} />
+            <Image src={Money} width={40} height={40} alt="" />
             <FeatureContent>
               <FeatureTitle>View your Spending</FeatureTitle>
               <Description>
@@ -215,7 +215,7 @@ export default function Home() {
           </Feature>
 
           <Feature>
-            <Image src={Shield} width={40} height={40} />
+            <Image src={Shield} width={40} height={40} alt="" />
             <FeatureContent>
               <FeatureTitle>Create a monthly budget</FeatureTitle>
               <Description>

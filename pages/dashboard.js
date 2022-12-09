@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v3.0+ */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -9,11 +9,39 @@ import Modal from "../components/Modal";
 
 import CardImage from "../public/images/cards.png";
 import TipsImage from "../public/images/tips.png";
+import axios from 'axios'
+import PlaidLinkC from "../components/PlaidLinkC";
+import Plaid from './Plaid';
+import PLink from "../components/PLink";
+import PlaidLinkWithOAuth from "../components/PLinkWithAuth";
 
-export default function Dashboard() {
+export default function Dashboard({ userAgent }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [budget, setBudget] = useState("800");
+  const [transactions, setTransactions] = useState(Object);
+
+  // console.log({userAgent});
+
+  useEffect(() => {
+    const fetch = async () => {
+      await axios
+        .post('/api/plaid', {
+          public_token: 'public_token',
+          metadata: 'metadata',
+          userEmail: 'paulinnocent04@gmail.com',
+        })
+        .then((res) => {
+          console.log({res});
+          if (res.ok !== false) {
+            setTransactions({ transactions: res.transactions });
+          }
+        });
+    }
+    return fetch
+  }, [])
+
+  console.log({transactions});
 
   return (
     <div>
@@ -152,13 +180,32 @@ export default function Dashboard() {
                   <Image src={TipsImage} alt="Cards" />
                 </TipsWrapper>
               </LeftSide>
-              <p>sw</p>
+              <p style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 250 }}>sw <br />
+
+                {/* <PlaidLinkC /> */}
+                {/* <Plaid /> */}
+                <PLink />
+                {/* <PlaidLinkWithOAuth /> */}
+              </p>
             </Split>
           </Row>
         </Container>
       </Body>
     </div>
   );
+}
+
+Dashboard.getInitialProps = async (ctx) => {
+  const { req } = ctx;
+  // const requestOptions = {
+  //   method: "POST",
+  // }
+  // const response = await fetch("/api/plaid/", requestOptions);
+  // const data = await response.json();
+  // console.log(data);
+  // response.json(data);
+  const userAgent = req ? req.headers['user-agent'] || '' : navigator.userAgent;
+  return { userAgent };
 }
 
 const Container = styled.div`
