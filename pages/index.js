@@ -4,6 +4,7 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import styled from "styled-components";
+import Link from "next/link";
 
 //import images
 import GridImage from "../public/images/grid.png";
@@ -18,7 +19,7 @@ const navigation = [
   { name: "Company", href: "#" },
 ];
 
-export default function Example() {
+export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -177,9 +178,11 @@ export default function Example() {
                     The no-stress solution to control your spending habits
                   </p>
                   <div className="mt-8 flex gap-x-4 sm:justify-center">
-                    <CTA>
-                      Connect Bank <span aria-hidden="true">&rarr;</span>
-                    </CTA>
+                    <Link href="/dashboard">
+                      <CTA>
+                        Connect Bank <span aria-hidden="true">&rarr;</span>
+                      </CTA>
+                    </Link>
                   </div>
                 </div>
               </div>
